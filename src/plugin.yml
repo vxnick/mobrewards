@@ -1,0 +1,25 @@
+name: MobRewards
+main: com.vxnick.mobrewards.MobRewards
+version: 0.1.0
+description: Reward players for killing mobs.
+author: vxnick
+website: http://github.com/vxnick/mobrewards
+depend: [Vault]
+
+commands:
+  mr:
+    description: Mob Rewards
+    usage: /<command> help for a list of commands
+    aliases: [mobrewards]
+permissions:
+  mobrewards.reward:
+    description: Reward players for mob kills
+    default: true
+  mobrewards.admin.reload:
+    description: Reload configuration
+    default: op
+  mobrewards.admin.*:
+    description: Administrative commands
+    default: op
+    children:
+      mobrewards.admin.reload: true

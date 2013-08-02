@@ -1,0 +1,47 @@
+log: false
+global:
+  money_decrease: false
+  exp_decrease: false
+  kill_limit: -1
+messages:
+  reward: "You have earned [REWARD] for killing this mob!"
+  limit: "Kill a different type of mob to continue receiving rewards"
+mobs:
+  BABY_ZOMBIE:
+    money: 10.0
+  BLAZE:
+    money: 10.0
+  CAVE_SPIDER:
+    money: 10.0
+  CREEPER:
+    money: 10.0
+  ENDER_DRAGON:
+    money: 200.0
+  ENDERMAN:
+    money: 10.0
+  GHAST:
+    money: 20.0
+  GIANT:
+    money: 20.0
+  IRON_GOLEM:
+    money: 30.0
+  MAGMA_CUBE:
+    money: 5.0
+  PIG_ZOMBIE:
+    money: 12.0
+  PLAYER:
+    money: 15.0
+  SILVERFISH:
+    money: 1.0
+  SKELETON:
+    money: 10.0
+  SLIME:
+    money: 5.0
+  SPIDER:
+    money: 7.0
+  WITCH:
+    money: 50.0
+  WITHER:
+    money: 200.0
+  ZOMBIE:
+    money: 5.0
