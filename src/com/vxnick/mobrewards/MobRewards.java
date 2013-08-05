@@ -80,7 +80,22 @@ public final class MobRewards extends JavaPlugin implements Listener {
 		if (!mobType.equals(getPlayerData(player.getName(), "last_mob_type"))) {
 			mobKills.remove(player.getName());
 			setMobKills(player.getName(), mobType, 0);
-			logMessage("Clearing kill count for " + player.getName());
+			logMessage("Resetting kill limit for " + player.getName());
+		} else {
+			// Reset this if the player hasn't killed the same mob type for a while
+			int lastKillTime;
+			
+			if (getPlayerData(player.getName(), String.format("last_%s_kill_time", mobType)) == null) {
+				lastKillTime = (int) getUnixTime();
+			} else {
+				lastKillTime = ((Long) (getPlayerData(player.getName(), String.format("last_%s_kill_time", mobType)))).intValue();
+			}
+			
+			if ((int) getUnixTime() - lastKillTime > getConfig().getInt("global.kill_reset", 30)) {
+				mobKills.remove(player.getName());
+				setMobKills(player.getName(), mobType, 0);
+				logMessage(String.format("Auto resetting %s kill limit for %s", mobType, player.getName()));
+			}
 		}
 		
 		// Are rewards specified for this mob?
