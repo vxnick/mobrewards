@@ -4,7 +4,7 @@ global:
   exp_decrease: false
   kill_limit: -1
 messages:
-  reward: "You have earned [REWARD] for killing this mob!"
+  reward: "You have earned [REWARD] for killing this [MOB_TYPE]!"
   limit: "Kill a different type of mob to continue receiving rewards"
 mobs:
   BABY_ZOMBIE:
