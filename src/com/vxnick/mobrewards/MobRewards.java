@@ -122,7 +122,7 @@ public final class MobRewards extends JavaPlugin implements Listener {
 				String rewardText = "";
 				
 				// Should money be given as a reward?
-				if (moneyAmount >= 1.0) {
+				if (moneyAmount > 0.0) {
 					double payMoneyAmount;
 					
 					// Calculate how much to pay the player
@@ -133,7 +133,7 @@ public final class MobRewards extends JavaPlugin implements Listener {
 					}
 					
 					// Pay the player
-					if (payMoneyAmount >= 0.0) {
+					if (payMoneyAmount > 0.0) {
 						rewardText += econ.format(payMoneyAmount);
 						
 						String rewardMessage = getConfig().getString("messages.reward");
