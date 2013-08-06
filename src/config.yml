@@ -2,7 +2,7 @@ log: false
 global:
   money_decrease: false
   exp_decrease: false
-  kill_limit: -1
+  kill_limit: 5
   kill_reset: 30
 messages:
   reward: "You have earned [REWARD] for killing this [MOB_TYPE]!"
