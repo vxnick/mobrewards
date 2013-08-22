@@ -155,7 +155,8 @@ public final class MobRewards extends JavaPlugin implements Listener {
 						
 						String rewardMessage = getConfig().getString("messages.reward");
 						rewardMessage = rewardMessage.replace("[REWARD]", rewardText);
-						rewardMessage = rewardMessage.replace("[MOB_TYPE]", mobType.toLowerCase().replaceAll("_", " "));
+						String mobName = getConfig().getString(String.format("mobs.%s.name",mobType),mobType);
+						rewardMessage = rewardMessage.replace("[MOB_TYPE]", mobName.toLowerCase().replaceAll("_", " "));
 						
 						econ.depositPlayer(player.getName(), payMoneyAmount);
 						player.sendMessage(ChatColor.GOLD + rewardMessage);
