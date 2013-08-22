@@ -1,3 +1,4 @@
+# To make a random range of reward seperate value with a colon (:) (ie. 'money: 10.0:15.0')
 log: false
 global:
   money_decrease: false
