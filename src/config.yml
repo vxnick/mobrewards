@@ -1,4 +1,5 @@
 # To make a random range of reward seperate value with a colon (:) (ie. 'money: 10.0:15.0')
+# You can change the name of the mob in the reward message by adding 'name: "New mob name"' to any mob.  If no name is given then default name is used.
 log: false
 global:
   money_decrease: false
@@ -11,6 +12,7 @@ messages:
 mobs:
   BABY_ZOMBIE:
     money: 10.0
+    name: "Little Zom"
   BLAZE:
     money: 10.0
   CAVE_SPIDER:
