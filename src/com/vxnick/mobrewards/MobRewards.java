@@ -115,7 +115,24 @@ public final class MobRewards extends JavaPlugin implements Listener {
 			
 			// Does the player have kills left before reaching the limit?
 			if (playerTypeKills < mobKillLimit || mobKillLimit == -1) {
-				double moneyAmount = getConfig().getDouble(String.format("mobs.%s.money", mobType), 0.0);
+				String moneyRange = getConfig().getString(String.format("mobs.%s.money", mobType), 0.0);
+				double moneyAmount;
+				String[] splitRange = string.split(":");
+				int range;
+				int loc;
+				if (splitRange.length >1) {
+					if (getDouble(splitRange[0], 0) > getDouble(splitRange[1], 0)) {
+						range = (int) ((getDouble(splitRange[0], 0) * 100) - (getDouble(splitRange[1], 0) * 100));
+						loc = (int) (getDouble(splitRange[1], 0) * 100);
+					} else {
+						range = (int) ((getDouble(splitRange[1], 0) * 100) - (getDouble(splitRange[0], 0) * 100));
+						loc = (int) (getDouble(splitRange[0], 0) * 100);
+					}
+					moneyAmount = (loc + rand.nextInt(range + 1)) / 100;
+					
+				} else {
+					moneyAmount = Double.parseDouble(moneyRange);
+				}
 				boolean moneyDecrease = getConfig().getBoolean(String.format("mobs.%s.money_decrease", mobType), 
 						getConfig().getBoolean("global.money_decrease", false));
 				int payExpAmount;
