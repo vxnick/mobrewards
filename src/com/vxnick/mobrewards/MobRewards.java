@@ -121,12 +121,12 @@ public final class MobRewards extends JavaPlugin implements Listener {
 				int range;
 				int loc;
 				if (splitRange.length >1) {
-					if (getDouble(splitRange[0], 0) > getDouble(splitRange[1], 0)) {
-						range = (int) ((getDouble(splitRange[0], 0) * 100) - (getDouble(splitRange[1], 0) * 100));
-						loc = (int) (getDouble(splitRange[1], 0) * 100);
+					if (getConfig().getDouble(splitRange[0], 0) > getConfig().getDouble(splitRange[1], 0)) {
+						range = (int) ((getConfig().getDouble(splitRange[0], 0) * 100) - (getConfig().getDouble(splitRange[1], 0) * 100));
+						loc = (int) (getConfig().getDouble(splitRange[1], 0) * 100);
 					} else {
-						range = (int) ((getDouble(splitRange[1], 0) * 100) - (getDouble(splitRange[0], 0) * 100));
-						loc = (int) (getDouble(splitRange[0], 0) * 100);
+						range = (int) ((getConfig().getDouble(splitRange[1], 0) * 100) - (getConfig().getDouble(splitRange[0], 0) * 100));
+						loc = (int) (getConfig().getDouble(splitRange[0], 0) * 100);
 					}
 					moneyAmount = (loc + rand.nextInt(range + 1)) / 100;
 					
