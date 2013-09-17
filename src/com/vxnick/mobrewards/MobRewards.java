@@ -126,7 +126,24 @@ public final class MobRewards extends JavaPlugin implements Listener {
 			
 			// Does the player have kills left before reaching the limit?
 			if (playerTypeKills < mobKillLimit || mobKillLimit == -1) {
-				double moneyAmount = getConfig().getDouble(String.format("mobs.%s.money", mobType), 0.0);
+				String moneyRange = getConfig().getString(String.format("mobs.%s.money", mobType), 0.0);
+				double moneyAmount;
+				String[] splitRange = string.split(":");
+				int range;
+				int loc;
+				if (splitRange.length >1) {
+					if (getConfig().getDouble(splitRange[0], 0) > getConfig().getDouble(splitRange[1], 0)) {
+						range = (int) ((getConfig().getDouble(splitRange[0], 0) * 100) - (getConfig().getDouble(splitRange[1], 0) * 100));
+						loc = (int) (getConfig().getDouble(splitRange[1], 0) * 100);
+					} else {
+						range = (int) ((getConfig().getDouble(splitRange[1], 0) * 100) - (getConfig().getDouble(splitRange[0], 0) * 100));
+						loc = (int) (getConfig().getDouble(splitRange[0], 0) * 100);
+					}
+					moneyAmount = (loc + rand.nextInt(range + 1)) / 100;
+					
+				} else {
+					moneyAmount = Double.parseDouble(moneyRange);
+				}
 				boolean moneyDecrease = getConfig().getBoolean(String.format("mobs.%s.money_decrease", mobType), 
 						getConfig().getBoolean("global.money_decrease", false));
 				int payExpAmount;
@@ -149,7 +166,8 @@ public final class MobRewards extends JavaPlugin implements Listener {
 						
 						String rewardMessage = getConfig().getString("messages.reward");
 						rewardMessage = rewardMessage.replace("[REWARD]", rewardText);
-						rewardMessage = rewardMessage.replace("[MOB_TYPE]", mobType.toLowerCase().replaceAll("_", " "));
+						String mobName = getConfig().getString(String.format("mobs.%s.name",mobType),mobType);
+						rewardMessage = rewardMessage.replace("[MOB_TYPE]", mobName.toLowerCase().replaceAll("_", " "));
 						
 						econ.depositPlayer(player.getName(), payMoneyAmount);
 						player.sendMessage(ChatColor.GOLD + rewardMessage);
