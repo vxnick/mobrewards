@@ -6,6 +6,11 @@ global:
   exp_decrease: false
   kill_limit: 5
   kill_reset: 30
+  creative_earnings: false
+  worlds:
+  - world
+  - world_nether
+  - world_the_end
 messages:
   reward: "You have earned [REWARD] for killing this [MOB_TYPE]!"
   limit: "Kill a different type of mob to continue receiving rewards"

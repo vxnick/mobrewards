@@ -7,6 +7,7 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.LivingEntity;
@@ -73,6 +74,16 @@ public final class MobRewards extends JavaPlugin implements Listener {
 		
 		// Bail out if the player doesn't have the required permission
 		if (!perms.has(player, "mobrewards.reward")) {
+			return;
+		}
+		
+		// Bail out if the player is in creative gamemode and this isn't allowed
+		if (player.getGameMode().equals(GameMode.CREATIVE) && !getConfig().getBoolean("global.creative_earnings", false)) {
+			return;
+		}
+		
+		// Check if this kill is in an allowed world
+		if (!getConfig().getStringList("global.worlds").isEmpty() && !getConfig().getStringList("global.worlds").contains(mob.getWorld().getName())) {
 			return;
 		}
 		
