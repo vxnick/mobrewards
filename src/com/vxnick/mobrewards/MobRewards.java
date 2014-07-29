@@ -1,6 +1,8 @@
 package com.vxnick.mobrewards;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 
 import net.milkbowl.vault.economy.Economy;
@@ -147,9 +149,32 @@ public final class MobRewards extends JavaPlugin implements Listener {
 					if (payMoneyAmount > 0.0) {
 						rewardText += econ.format(payMoneyAmount);
 						
+						// Randomly choose a kill reason, if any are specified
+						List<String> killReasons = getConfig().getStringList("messages.kill_reasons");
+						String killReason;
+						
+						if (killReasons.isEmpty()) {
+							killReason = "killing";
+						} else {
+							int rand = new Random().nextInt(killReasons.size());
+							killReason = killReasons.get(rand);
+						}
+						
+						// Randomly choose a mob name, if any are specified
+						List<String> mobNames = getConfig().getStringList(String.format("mobs.%s.names", mobType));
+						String mobName;
+						
+						if (mobNames.isEmpty()) {
+							mobName = mobType.toLowerCase().replaceAll("_", " ");
+						} else {
+							int rand = new Random().nextInt(mobNames.size());
+							mobName = mobNames.get(rand);
+						}
+						
 						String rewardMessage = getConfig().getString("messages.reward");
 						rewardMessage = rewardMessage.replace("[REWARD]", rewardText);
-						rewardMessage = rewardMessage.replace("[MOB_TYPE]", mobType.toLowerCase().replaceAll("_", " "));
+						rewardMessage = rewardMessage.replace("[KILL_REASON]", killReason);
+						rewardMessage = rewardMessage.replace("[MOB_TYPE]", mobName);
 						
 						econ.depositPlayer(player.getPlayer(), payMoneyAmount);
 						player.sendMessage(ChatColor.GOLD + rewardMessage);

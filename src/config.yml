@@ -10,8 +10,10 @@ global:
   - world_nether
   - world_the_end
 messages:
-  reward: "You have earned [REWARD] for killing this [MOB_TYPE]!"
+  reward: "You have earned [REWARD] for [KILL_REASON] this [MOB_TYPE]!"
   limit: "Kill a different type of mob to continue receiving rewards"
+  kill_reasons:
+  - killing
 mobs:
   BABY_ZOMBIE:
     money: 10.0
