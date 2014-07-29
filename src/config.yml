@@ -17,6 +17,8 @@ messages:
   - killing
 mobs:
   BABY_ZOMBIE:
+    names:
+    - "mini zombie"
     money: 10.0
   BLAZE:
     money: 10.0
