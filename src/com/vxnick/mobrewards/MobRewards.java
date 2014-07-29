@@ -151,7 +151,7 @@ public final class MobRewards extends JavaPlugin implements Listener {
 						rewardMessage = rewardMessage.replace("[REWARD]", rewardText);
 						rewardMessage = rewardMessage.replace("[MOB_TYPE]", mobType.toLowerCase().replaceAll("_", " "));
 						
-						econ.depositPlayer(player.getName(), payMoneyAmount);
+						econ.depositPlayer(player.getPlayer(), payMoneyAmount);
 						player.sendMessage(ChatColor.GOLD + rewardMessage);
 					}
 				}
