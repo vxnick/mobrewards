@@ -1,6 +1,6 @@
 name: MobRewards
 main: com.vxnick.mobrewards.MobRewards
-version: 0.3.0
+version: 0.4.0
 description: Reward players for killing mobs.
 author: vxnick
 website: http://github.com/vxnick/mobrewards
