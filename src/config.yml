@@ -5,6 +5,7 @@ global:
   kill_limit: 5
   kill_reset: 30
   creative_earnings: false
+  spawner_earnings: true
   worlds:
   - world
   - world_nether

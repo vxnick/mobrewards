@@ -1,8 +1,10 @@
 package com.vxnick.mobrewards;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import net.milkbowl.vault.economy.Economy;
@@ -17,6 +19,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,6 +30,7 @@ public final class MobRewards extends JavaPlugin implements Listener {
 	public static Permission perms = null;
 	public static HashMap<String, HashMap<String, Integer>> mobKills = new HashMap<String, HashMap<String, Integer>>();
 	public static HashMap<String, HashMap<String, Object>> playerData = new HashMap<String, HashMap<String, Object>>();
+	public static HashSet<UUID> spawnedMobs = new HashSet<UUID>();
 	
 	@Override
 	public void onEnable() {
@@ -63,12 +68,29 @@ public final class MobRewards extends JavaPlugin implements Listener {
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
+	public void onMobSpawn(CreatureSpawnEvent event) {
+		// Only log spawned mobs if we want to disable earnings
+		if (getConfig().getBoolean("global.spawner_earnings", true)) {
+			return;
+		}
+		
+		if (event.getSpawnReason() == SpawnReason.SPAWNER) {
+			spawnedMobs.add(event.getEntity().getUniqueId());
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onMobDeath(EntityDeathEvent event) {
 		LivingEntity mob = (LivingEntity) event.getEntity();
 		String mobType = mob.getType().toString();
 		
 		// Only run if this is a player kill
 		if (!(mob.getKiller() instanceof Player)) {
+			return;
+		}
+		
+		// Bail out if this mob was spawned by a spawner, and that's disallowed in the config
+		if (spawnedMobs.remove(mob.getUniqueId()) && getConfig().getBoolean("global.spawner_earnings", true) == false) {
 			return;
 		}
 		
